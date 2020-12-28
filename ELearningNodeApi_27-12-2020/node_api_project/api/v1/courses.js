@@ -1,7 +1,7 @@
 var RESOURCE_NAME = 'courses';
 var VERSION = 'v1';
 var URI = '/' + VERSION + '/' + RESOURCE_NAME; 
-
+var MAX_AGE = 15;
 const { isValidObjectId } = require('mongoose');
 var db = require('../../db/courses')
 
@@ -13,6 +13,7 @@ module.exports = function(router){
     router.route(URI).get(function(req, res,next){
         console.log("GET Course details")
         
+        res.header('Cache-Control', 'public, max-age='+MAX_AGE);
 
         var fields ={}
         if(req.query && req.query.fields !== undefined){
@@ -50,7 +51,7 @@ module.exports = function(router){
 
     router.route(URI).post(function(req, res,next){
         console.log("POST  Course Details")
-
+        res.header('Cache-Control', 'public, max-age='+MAX_AGE);
         var doc = req.body;
 
         db.save(doc, function(err,saved){
@@ -67,6 +68,7 @@ module.exports = function(router){
 
     router.route(URI).put(function(req,res,next){
         console.log("update data")
+        res.header('Cache-Control', 'public, max-age='+MAX_AGE);
         var criteria = {_id:'5fe88a25297d2a1e1cb99429'}
         var doc = req.body;
         db.update(criteria,doc,function(err,updated){
@@ -83,6 +85,7 @@ module.exports = function(router){
 
     router.route(URI).delete(function(req,res,next){
         console.log("Remove data")
+        res.header('Cache-Control', 'public, max-age='+MAX_AGE);
         var criteria = {name:"Python"}
         db.delete(criteria,function(err,deleted){
             if(err){
