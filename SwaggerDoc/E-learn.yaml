@@ -1,0 +1,218 @@
+swagger: "2.0"
+info: 
+  version: "0.0.1"
+  title:  E-LEARNING API
+  description: This specification is for an e-learning platform which provides various courses for improving skills in various fields. 
+  
+  contact:
+    name: HARIKRISHNAN 
+    url: https://www.e-learnforyou.com
+    email: admin@e-learn.com
+    
+  license:
+    name: ELEARN
+    url: https://www.e-learnforyou.com
+    
+host: localhost:3003
+basePath: /v1/
+schemes:
+  - http
+  - https
+
+consumes:
+  - application/json
+#format of the responses to hte client
+produces:
+  - application/json
+
+tags:
+  - name: Courses
+    description: Refer to Courses
+
+externalDocs:
+  description: This is an external doc
+  url: https://www.developer.elearn.com/docs
+  
+
+#this is where the resouse paths are defined
+paths:
+  #api name ustapi
+  /courses:
+    get:
+      summary: This is a get api for courses list
+      description: In this page you can find list of courses available
+        
+      tags:
+        - courses
+      
+      #parameres: There ar eno parameters for this operation
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/courses"
+        "500":
+          description: Database connection failed
+          schema:
+            $ref: "#/definitions/NotConnectedError"
+        "404":
+          description: No document found
+          schema:
+            $ref: "#/definitions/NotFoundError"
+    
+    put:
+      summary: This is a put api for courses
+      description: In this page you can update the courses available
+        
+      tags:
+        - courses
+      
+      #parameres: There ar eno parameters for this operation
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/courses"
+        "400":
+          description: Missing data or format mismatch
+          schema:
+            $ref: "#/definitions/courses"
+    
+    post:
+      summary: This is a post api for courses
+      description: In this page you can add new courses
+        
+      tags:
+        - courses
+      
+      #parameres: There ar eno parameters for this operation
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/courses"
+        "400":
+          description: Database connection failed
+          schema:
+            $ref: "#/definitions/NotConnectedError"
+        
+    
+    delete:
+      summary: This is a delet api for courses list
+      description: In this page you can delete course from list of courses available
+        
+      tags:
+        - courses
+      
+      #parameres: There ar eno parameters for this operation
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/courses"
+        "500":
+          description: Database connection failed
+          schema:
+            $ref: "#/definitions/NotConnectedError"
+
+#Definitions
+definitions:
+  #Not Found Error
+  NotFoundError:
+    required:
+      - message
+      - hint
+    properties:
+      message:
+        type: string
+      hint:
+        type: string
+        
+   #Not Connected Error
+  NotConnectedError:
+    required:
+      - message
+      - hint
+    properties:
+      message:
+        type: string
+      hint:
+        type: string
+    
+  #courses
+  courses:
+    required:
+      - code
+      - name 
+      - description
+      - category 
+      - durationInHours
+      - price
+      - authors 
+    properties:
+      code:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+      category:
+        type: string
+      durationInHours:
+        type: number
+      price:
+        type: number
+      authors:
+        type: string
+  
+  deliverables:
+    type: array
+    items: 
+      $ref: "#/definitions/contents"
+   
+
+  contents:
+    required:
+      - title
+      - description
+      - video
+    properties:
+      title:
+        type: string
+      description:
+        type: string
+      video:
+        type: string
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
